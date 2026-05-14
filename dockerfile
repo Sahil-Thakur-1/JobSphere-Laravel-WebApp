@@ -1,26 +1,32 @@
-# Dockerfile
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev
-
-# Install extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+    git unzip curl libzip-dev zip nodejs npm \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www
+WORKDIR /app
 
-# Copy project
+# Copy files
 COPY . .
 
-# Install Laravel dependencies
+# Install PHP deps
 RUN composer install --no-dev --optimize-autoloader
 
-# Permissions
-RUN chmod -R 775 storage bootstrap/cache
+# Install Node deps & build assets
+RUN npm install
+RUN npm run build
 
-CMD php artisan serve --host=0.0.0.0 --port=10000
+# Fix permissions
+RUN chmod -R 777 storage bootstrap/cache
+
+# Start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+EXPOSE 10000
+
+CMD ["/start.sh"]
