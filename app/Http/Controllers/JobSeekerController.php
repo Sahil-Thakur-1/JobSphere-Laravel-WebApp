@@ -26,7 +26,6 @@ class JobSeekerController extends Controller
     }
 
     function updateDetail(Request $request){
-        try{
         $data = $request->validate([
             'headline' => 'nullable|string|max:255',
             'current_location' => 'nullable|string|max:255',
@@ -69,11 +68,8 @@ class JobSeekerController extends Controller
             $profile->user->skills()->sync($request->skills);
         }
 
-        return back()->with('success', 'Profile updated successfully!');
-        }
-        catch(Exception $e){
-            dd($e);
-        }
+        return back()->with('status', 'Profile updated successfully!');
+    
     }
 
     function addExperience(Request $request){
@@ -92,7 +88,7 @@ class JobSeekerController extends Controller
            'description'=>$request->description,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('status','Experinece added succesfully');
     }
 
     function addEducation(Request $request){
@@ -117,7 +113,7 @@ class JobSeekerController extends Controller
             'description' => $data['description'] ?? null,
         ]);
 
-        return redirect()->back()->with('success', 'Education added successfully!');
+        return redirect()->back()->with('status', 'Education added successfully!');
     }
  
     function deleteEducation($id){
@@ -126,7 +122,7 @@ class JobSeekerController extends Controller
             abort(403);
         }
         $education->delete();
-        return redirect()->back()->with('success', 'Education deleted successfully');
+        return redirect()->back()->with('status', 'Education deleted successfully');
     }
 
     function deleteExperience($id){
@@ -135,12 +131,12 @@ class JobSeekerController extends Controller
             abort(403);
         }
         $workExperience->delete();
-        return redirect()->back()->with('success', 'workExperience deleted successfully');
+        return redirect()->back()->with('status', 'workExperience deleted successfully');
     }
 
     function applyJob($id){
         auth()->user()->appliedJobs()->syncWithoutDetaching([$id]);
-        return redirect()->back()->with('success','job applied successfully');
+        return redirect()->back()->with('status','job applied successfully');
     }
 
     function showJobs(){

@@ -86,12 +86,12 @@
                                 required
                             >
                                 <option value="" disabled selected>{{ __('Select company size') }}</option>
-                                <option value="1-10">1 – 10 employees</option>
-                                <option value="11-50">11 – 50 employees</option>
-                                <option value="51-200">51 – 200 employees</option>
-                                <option value="201-500">201 – 500 employees</option>
-                                <option value="501-1000">501 – 1,000 employees</option>
-                                <option value="1000+">1,000+ employees</option>
+                                <option value="1-10"  {{ old('company_size', $details['company_size'] ?? '' ) == "1-10" ? 'selected' : '' }}>1 – 10 employees</option>
+                                <option value="11-50"  {{ old('company_size', $details['company_size'] ?? '') == "11-50" ? 'selected' : '' }}>11 – 50 employees</option>
+                                <option value="51-200"  {{ old('company_size', $details['company_size']?? '') == "51-200" ? 'selected' : '' }}>51 – 200 employees</option>
+                                <option value="201-500"  {{ old('company_size', $details['company_size'] ?? '') == "201-500" ? 'selected' : '' }}>201 – 500 employees</option>
+                                <option value="501-1000"  {{ old('company_size', $details['company_size'] ?? '') == "501-1000" ? 'selected' : '' }}>501 – 1,000 employees</option>
+                                <option value="1000+"  {{ old('company_size', $details['company_size'] ?? '') == "1000+" ? 'selected' : '' }}>1,000+ employees</option>
                             </select>
                         </div>
                         <x-input-error class="text-xs text-red-500 mt-1" :messages="$errors->get('company_size')" />
@@ -115,15 +115,15 @@
                                 required
                             >
                                 <option value="" disabled selected>{{ __('Select your industry') }}</option>
-                                <option value="technology">Technology</option>
-                                <option value="finance">Finance & Banking</option>
-                                <option value="healthcare">Healthcare</option>
-                                <option value="education">Education</option>
-                                <option value="ecommerce">E-Commerce & Retail</option>
-                                <option value="manufacturing">Manufacturing</option>
-                                <option value="media">Media & Entertainment</option>
-                                <option value="consulting">Consulting</option>
-                                <option value="other">Other</option>
+                                <option value="technology" {{ old('industry', $details['industry'] ?? '' ) == "technology" ? 'selected' : '' }}>Technology</option>
+                                <option value="finance" {{ old('industry', $details['industry'] ?? '' ) == "finance" ? 'selected' : '' }}>Finance & Banking</option>
+                                <option value="healthcare" {{ old('industry', $details['industry'] ?? '' ) == "healthcare" ? 'selected' : '' }}>Healthcare</option>
+                                <option value="education" {{ old('industry', $details['industry'] ?? '' ) == "education" ? 'selected' : '' }}>Education</option>
+                                <option value="ecommerce" {{ old('industry', $details['industry'] ?? '' ) == "ecommerce" ? 'selected' : '' }}>E-Commerce & Retail</option>
+                                <option value="manufacturing" {{ old('industry', $details['industry'] ?? '' ) == "manufacturing" ? 'selected' : '' }}>Manufacturing</option>
+                                <option value="media" {{ old('industry', $details['industry'] ?? '' ) == "media" ? 'selected' : '' }}>Media & Entertainment</option>
+                                <option value="consulting" {{ old('industry', $details['industry'] ?? '' ) == "consulting" ? 'selected' : '' }}>Consulting</option>
+                                <option value="other" {{ old('industry', $details['industry'] ?? '' ) == "other" ? 'selected' : '' }}>Other</option>
                             </select>
                         </div>
                         <x-input-error class="text-xs text-red-500 mt-1" :messages="$errors->get('industry')" />

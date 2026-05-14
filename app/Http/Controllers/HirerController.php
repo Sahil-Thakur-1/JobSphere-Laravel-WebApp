@@ -60,7 +60,7 @@ class HirerController extends Controller
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Job created');
+            return redirect()->back()->with('status', 'Job created');
     }
 
     function getJobsAndSkills(){
@@ -75,7 +75,7 @@ class HirerController extends Controller
         $job->applicants()->syncWithoutDetaching([$userId => [
             'status' => $request->status
         ]]);
-        return redirect()->back()->with('success','status updated successfully');
+        return redirect()->back()->with('status','status updated successfully');
     }
 
     function getJobApplication(){
